@@ -2,17 +2,41 @@
   <h3>Aktionen</h3>
   <div class="actions">
     <button mat-raised-button (click)="onLoadUsers()">Lade Nutzer</button>
-    <button mat-raised-button (click)="onSelectUser()">Selekt Nutzer</button>
-    <button mat-raised-button (click)="onOpenDialog()">Dialog</button>
-    <button mat-raised-button (click)="onOpenSnackbar()">Snackbar</button>
+    <button
+      mat-raised-button
+      (click)="onSelectUser(null)"
+      [disabled]="!(selectedUser$ | async)"
+    >
+      Selekt Nutzer
+    </button>
+    <button
+      mat-raised-button
+      [disabled]="!(selectedUser$ | async)"
+      (click)="onOpenDialog()"
+    >
+      Dialog
+    </button>
+    <button
+      mat-raised-button
+      [disabled]="!(selectedUser$ | async)"
+      (click)="onOpenSnackbar()"
+    >
+      Snackbar
+    </button>
   </div>
 </div>
 <div>
   <h3>User</h3>
   <div class="nutzerliste">
-    <ng-container *ngFor="let user of users$ | async">
-      <p>{{ user }}</p>
+    <ng-container *ngIf="usersLoading$ | async; else userList">
+      <mat-spinner [mode]="'indeterminate'"> </mat-spinner>
     </ng-container>
+    <ng-template #userList>
+      <ng-container *ngFor="let user of users$ | async">
+        <p>{{ user.name }}</p>
+        <button mat-button (click)="onSelectUser(user)">Select User</button>
+      </ng-container>
+    </ng-template>
   </div>
 </div>
 <div>
