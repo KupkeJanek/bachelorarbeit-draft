@@ -1,11 +1,16 @@
 <div>
   <h3>Aktionen</h3>
-  <button mat-raised-button>Lade Nutzer</button>
+  <div class="actions">
+    <button mat-raised-button (click)="onLoadUsers()">Lade Nutzer</button>
+    <button mat-raised-button (click)="onSelectUser()">Selekt Nutzer</button>
+    <button mat-raised-button (click)="onOpenDialog()">Dialog</button>
+    <button mat-raised-button (click)="onOpenSnackbar()">Snackbar</button>
+  </div>
 </div>
 <div>
   <h3>User</h3>
   <div class="nutzerliste">
-    <ng-container *ngFor="let user of [1, 2, 3]">
+    <ng-container *ngFor="let user of users$ | async">
       <p>{{ user }}</p>
     </ng-container>
   </div>
