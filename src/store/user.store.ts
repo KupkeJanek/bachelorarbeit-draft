@@ -9,25 +9,16 @@ import { User } from 'src/app/app.component';
 
 export interface UserState
   extends EntityState<User, string>,
-    ActiveState<string> {
-  ui: {
-    filter: string;
-  };
-}
+    ActiveState<string> {}
 
 const initialState = {
   loading: false,
-  ui: { filter: 'asdf' },
 };
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'User' })
+@StoreConfig({ name: 'User', idKey: 'id' })
 export class UserStore extends EntityStore<UserState> {
   constructor() {
     super(initialState);
-  }
-
-  updateFilter(filter: string) {
-    this.update({ ui: { filter } });
   }
 }

@@ -1,9 +1,12 @@
 <div>
   <h3>Aktionen</h3>
   <div class="actions">
-    <button mat-raised-button (click)="onLoadUsers()">Lade Nutzer</button>
+    <button mat-raised-button [color]="'primary'" (click)="onLoadUsers()">
+      Lade Nutzer
+    </button>
     <button
       mat-raised-button
+      [color]="'primary'"
       (click)="onSelectUser(null)"
       [disabled]="!(selectedUser$ | async)"
     >
@@ -11,6 +14,7 @@
     </button>
     <button
       mat-raised-button
+      [color]="'accent'"
       [disabled]="!(selectedUser$ | async)"
       (click)="onOpenDialog()"
     >
@@ -18,6 +22,7 @@
     </button>
     <button
       mat-raised-button
+      [color]="'primary'"
       [disabled]="!(selectedUser$ | async)"
       (click)="onOpenSnackbar()"
     >
@@ -31,9 +36,16 @@
     <ng-container *ngIf="usersLoading$ | async; else userList">
       <mat-spinner [mode]="'indeterminate'"> </mat-spinner>
     </ng-container>
+    <ng-container *ngIf="!(usersLoading$ | async) && (hasError$ | async)">
+      <button mat-icon-button (click)="onLoadUsers()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </ng-container>
+
     <ng-template #userList>
       <ng-container *ngFor="let user of users$ | async">
         <p>{{ user.name }}</p>
+
         <button mat-button (click)="onSelectUser(user)">Select User</button>
       </ng-container>
     </ng-template>
@@ -41,4 +53,19 @@
 </div>
 <div>
   <h3>State</h3>
+
+  <div class="actions">
+    <button mat-raised-button [color]="'primary'" (click)="loadFailuire()">
+      Load Error
+    </button>
+    <button mat-raised-button [color]="'primary'" (click)="onSelectUser(null)">
+      Add Error
+    </button>
+    <button mat-raised-button [color]="'accent'" (click)="updateFailuire()">
+      Update Error
+    </button>
+    <button mat-raised-button [color]="'primary'" (click)="onOpenSnackbar()">
+      Delete Error
+    </button>
+  </div>
 </div>

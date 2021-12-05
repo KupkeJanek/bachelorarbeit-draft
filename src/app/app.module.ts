@@ -10,6 +10,9 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
+import { UserEffects } from 'src/store/user.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    ReactiveFormsModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
+    AkitaNgEffectsModule.forRoot([UserEffects]),
     AkitaNgRouterStoreModule,
   ],
   providers: [
