@@ -11,7 +11,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AkitaNgEffectsModule } from '@datorama/akita-ng-effects';
-import { UserEffects } from 'src/store/user.effects';
+import { UserEffects } from 'src/store/user/user.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

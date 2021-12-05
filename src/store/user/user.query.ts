@@ -4,7 +4,7 @@ import { QueryEntity } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { UserStore, UserState } from './user.store';
-import { entityLoadSuccess } from './base/base.actions';
+import { entityLoadSuccess } from '../base/base.actions';
 
 @Injectable({ providedIn: 'root' })
 export class UserQuery extends QueryEntity<UserState> {

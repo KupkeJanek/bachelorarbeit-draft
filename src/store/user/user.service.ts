@@ -2,7 +2,7 @@ import { User } from 'src/app/app.component';
 import { Injectable } from '@angular/core';
 import { Actions } from '@datorama/akita-ng-effects';
 import { UserState, UserStore } from './user.store';
-import { BaseService } from './base/base.service';
+import { BaseService } from '../base/base.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends BaseService<UserState, User> {

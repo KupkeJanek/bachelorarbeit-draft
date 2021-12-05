@@ -1,13 +1,13 @@
 import { Actions } from '@datorama/akita-ng-effects';
-import { UserQuery } from './../store/user.query';
+import { UserQuery } from './../store/user/user.query';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, throwError, timer } from 'rxjs';
-import { UserService } from 'src/store/user.service';
+import { UserService } from 'src/store/user/user.service';
 import { ID } from '@datorama/akita';
 import { switchMap } from 'rxjs/operators';
-import { mocks } from 'src/store/user.mock';
+import { mocks } from 'src/store/user/user.mock';
 import { FormControl, FormGroup } from '@angular/forms';
 
 export interface User {
