@@ -9,6 +9,7 @@ import { ID } from '@datorama/akita';
 import { switchMap } from 'rxjs/operators';
 import { mocks } from 'src/store/user/user.mock';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserProfileService } from 'src/store/userProfile/user-profile.service';
 
 export interface User {
   id: string;
@@ -30,7 +31,8 @@ export class AppComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private userQuery: UserQuery,
-    private usersService: UserService
+    private usersService: UserService,
+    private userProfileSerivce: UserProfileService
   ) {
     this.users$ = this.userQuery.selectAll();
     this.usersLoading$ = this.userQuery.selectLoading();
@@ -81,5 +83,11 @@ export class AppComponent {
     await this.usersService.upsert(of({ name: 'XMAS', id: '1' })).toPromise();
     await timer(3000).toPromise();
     await this.usersService.upsert(throwError('ERROR UPDATE')).toPromise();
+  }
+
+  async add() {
+    await this.userProfileSerivce
+      .upsert(of({ name: 'XMAS', id: '191' }))
+      .toPromise();
   }
 }

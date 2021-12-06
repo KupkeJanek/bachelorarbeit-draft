@@ -17,8 +17,8 @@ import {
   entityAddFailure,
   entityDeleteFailure,
   entityDeleteSuccess,
-  entityupsertFailure,
-  entityupsertSuccess,
+  entityUpsertFailure,
+  entityUpsertSuccess,
 } from './base.actions';
 export type getEntityType<S> = S extends EntityState<infer I> ? I : never;
 
@@ -38,7 +38,9 @@ export class BaseService<
       }),
       tap((items: getEntityType<S>[]) => {
         applyTransaction(() => {
-          this.actions.dispatch(entityLoadSuccess());
+          this.actions.dispatch(
+            entityLoadSuccess({ storeName: this.store.storeName })
+          );
           this.store.set(items);
           this.store.setError(null);
         });
@@ -51,12 +53,14 @@ export class BaseService<
     this.store.setLoading(true);
     return observable.pipe(
       catchError((error) => {
-        this.setErrorState(entityupsertFailure(), error);
+        this.setErrorState(entityUpsertFailure(), error);
         return throwError(error);
       }),
       tap((item: getEntityType<S>) => {
         applyTransaction(() => {
-          this.actions.dispatch(entityupsertSuccess());
+          this.actions.dispatch(
+            entityUpsertSuccess({ storeName: this.store.storeName })
+          );
           this.store.upsert(item.id, item);
           this.store.setError(null);
           this.store.setLoading(false);
