@@ -5,6 +5,7 @@ import {
   logAction,
 } from '@datorama/akita';
 import { Actions } from '@datorama/akita-ng-effects';
+import { Action } from '@datorama/akita-ng-effects/lib/types';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import {
@@ -14,15 +15,18 @@ import {
   entityLoadSuccess,
   entityUpsertFailure,
   entityUpsertSuccess,
-} from './base.actions';
+} from './base-entity.actions';
 export type getEntityType<S> = S extends EntityState<infer I> ? I : never;
 
-export class BaseService<
+export class BaseEntityService<
   S extends EntityState = any,
   EntityType = getEntityType<S>
 > {
-  constructor(public actions: Actions, public store: EntityStore<S>) {}
+  constructor(private actions: Actions, protected store: EntityStore<S>) {}
 
+  dispatch(action: Action): void {
+    this.actions.dispatch(action);
+  }
   get(observable: Observable<getEntityType<S>[]>): Observable<S[]> {
     logAction('Load ' + this.store.storeName);
     this.store.setLoading(true);
