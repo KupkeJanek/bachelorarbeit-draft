@@ -1,9 +1,9 @@
-import { entityUpsertSuccess, entityLoadSuccess } from './../base/base.actions';
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { tap, filter } from 'rxjs/operators';
+import { Effect, ofType } from '@datorama/akita-ng-effects';
+import { tap } from 'rxjs/operators';
+import { entityLoadSuccess, entityUpsertSuccess } from './../base/base.actions';
 import { UserQuery } from './user.query';
-import { Actions, Effect, ofType } from '@datorama/akita-ng-effects';
 
 @Injectable()
 export class UserEffects {
@@ -12,7 +12,7 @@ export class UserEffects {
 
   // Or use the decorator
   @Effect()
-  onUpsertSuccess$ = this.userQuery.stream$.pipe(
+  onUpsertSuccess$ = this.userQuery.actionStream$.pipe(
     ofType(entityUpsertSuccess),
     tap((data) => {
       if (data) {
@@ -23,7 +23,7 @@ export class UserEffects {
     })
   );
   @Effect()
-  loadMainNavigationSuccess$ = this.userQuery.stream$.pipe(
+  loadMainNavigationSuccess$ = this.userQuery.actionStream$.pipe(
     ofType(entityLoadSuccess),
     tap((data) => {
       if (data) {

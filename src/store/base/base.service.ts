@@ -1,22 +1,17 @@
 import {
   applyTransaction,
-  EntityService,
   EntityState,
   EntityStore,
-  getIDType,
   logAction,
-  Store,
 } from '@datorama/akita';
 import { Actions } from '@datorama/akita-ng-effects';
-import { Observable, of, throwError, timer } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import {
-  entityLoadSuccess,
-  entityLoadFailure,
-  entityAddSuccess,
-  entityAddFailure,
   entityDeleteFailure,
   entityDeleteSuccess,
+  entityLoadFailure,
+  entityLoadSuccess,
   entityUpsertFailure,
   entityUpsertSuccess,
 } from './base.actions';
@@ -28,7 +23,7 @@ export class BaseService<
 > {
   constructor(public actions: Actions, public store: EntityStore<S>) {}
 
-  get<T>(observable: Observable<any>): Observable<S[]> {
+  get(observable: Observable<getEntityType<S>[]>): Observable<S[]> {
     logAction('Load ' + this.store.storeName);
     this.store.setLoading(true);
     return observable.pipe(
@@ -48,7 +43,7 @@ export class BaseService<
     );
   }
 
-  upsert(observable: Observable<any>): Observable<S> {
+  upsert(observable: Observable<getEntityType<S>>): Observable<S> {
     logAction('Upsert ' + this.store.storeName);
     this.store.setLoading(true);
     return observable.pipe(
@@ -69,7 +64,7 @@ export class BaseService<
     );
   }
 
-  delete<T>(observable: Observable<any>): Observable<S> {
+  delete(observable: Observable<getEntityType<S>>): Observable<S> {
     logAction('Delete ' + this.store.storeName);
     this.store.setLoading(true);
     return observable.pipe(

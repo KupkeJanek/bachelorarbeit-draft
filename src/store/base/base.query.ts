@@ -1,29 +1,24 @@
-import { entityLoadSuccess, entityUpsertSuccess } from './../base/base.actions';
-import { Actions, ofType } from '@datorama/akita-ng-effects';
 import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
+import { EntityStore, QueryEntity } from '@datorama/akita';
+import { Actions, ofType } from '@datorama/akita-ng-effects';
+import { Action } from '@datorama/akita-ng-effects/lib/types';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { entityUpsertSuccess } from './../base/base.actions';
 
 @Injectable({ providedIn: 'root' })
-export class BaseQuery {
-  constructor(private actions: Actions) {}
+export class BaseQuery<S> extends QueryEntity<S> {
+  actionStream$: Observable<Action> = this.actions.pipe(
+    filter((action) => action.storeName === this.store.storeName)
+  );
+  constructor(protected store: EntityStore<S>, private actions: Actions) {
+    super(store);
+  }
 
-  getUpsertSuccessStream(storeName: string) {
+  selectActionStream(action: Action) {
     return this.actions.pipe(
       ofType(entityUpsertSuccess),
-      filter((action) => action.storeName === storeName)
-    );
-  }
-  getLoadSUccessStream(storeName: string) {
-    return this.actions.pipe(
-      ofType(entityLoadSuccess),
-      filter((action) => action.storeName === storeName)
-    );
-  }
-  getEntityStream(storeName: string) {
-    return this.actions.pipe(
-      filter((action) => action.storeName === storeName)
+      filter((action) => action.type === this.store.storeName)
     );
   }
 }
