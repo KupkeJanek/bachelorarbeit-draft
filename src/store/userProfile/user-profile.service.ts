@@ -1,13 +1,12 @@
-import { UserProfile } from './user-profile.model';
-import { User } from 'src/app/app.component';
 import { Injectable } from '@angular/core';
 import { Actions } from '@datorama/akita-ng-effects';
-import { UserState, UserStore } from '../user/user.store';
-import { BaseService } from '../base/base.service';
+import { User } from 'src/app/app.component';
+import { BaseEntityService } from '../base-entity/base-entity.service';
+import { UserProfile } from './user-profile.model';
 import { UserProfileState, UserProfileStore } from './user-profile.store';
 
 @Injectable({ providedIn: 'root' })
-export class UserProfileService extends BaseService<
+export class UserProfileService extends BaseEntityService<
   UserProfileState,
   UserProfile
 > {

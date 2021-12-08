@@ -1,1 +1,3 @@
-<p>test-dialog works!</p>
+<p>{{ title$ | async }}</p>
+
+<button mat-button [mat-dialog-close]="{ payload: 'payload' }">close</button>

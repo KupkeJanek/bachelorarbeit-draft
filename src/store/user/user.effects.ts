@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Effect, ofType } from '@datorama/akita-ng-effects';
 import { tap } from 'rxjs/operators';
-import { entityLoadSuccess, entityUpsertSuccess } from './../base/base.actions';
+import {
+  entityLoadSuccess,
+  entityUpsertSuccess,
+} from '../base-entity/base-entity.actions';
 import { UserQuery } from './user.query';
 
 @Injectable()
