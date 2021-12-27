@@ -15,7 +15,7 @@ export class BaseQuery {
       filter((action) => action.storeName === storeName)
     );
   }
-  getLoadSUccessStream(storeName: string) {
+  getLoadSuccessStream(storeName: string) {
     return this.actions.pipe(
       ofType(entityLoadSuccess),
       filter((action) => action.storeName === storeName)
