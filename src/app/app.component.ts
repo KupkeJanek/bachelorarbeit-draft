@@ -1,6 +1,6 @@
 import { Actions } from '@datorama/akita-ng-effects';
 import { UserQuery } from './../store/user/user.query';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, throwError, timer } from 'rxjs';

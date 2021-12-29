@@ -1,3 +1,46 @@
-<div class="toAnimate"></div>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side">
+    <p>Auto-resizing sidenav</p>
 
-<button mat-raised-button>Animate</button>
+    <mat-progress-spinner
+      class="example-margin"
+      [color]="'accent'"
+      [mode]="'determinate'"
+      [value]="scrollProgress"
+      *ngIf="scrolling$ | async"
+    >
+    </mat-progress-spinner>
+    <button mat-button>{{ scrollValue$ | async }}</button>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      "
+    >
+      <app-first-component
+        *ngIf="currentPage % 2 === 1"
+        [@slideInOut]
+      ></app-first-component>
+      <app-second-component
+        *ngIf="currentPage % 2 !== 1"
+        [@slideInOut]
+      ></app-second-component>
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+
+      <button
+        style="position: absolute"
+        mat-raised-button
+        (click)="currentPage = currentPage + 1"
+      >
+        Next Page
+      </button>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

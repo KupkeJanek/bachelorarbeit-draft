@@ -6,6 +6,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const materialModules = [
   MatButtonModule,
@@ -14,6 +16,8 @@ const materialModules = [
   MatProgressSpinnerModule,
   MatIconModule,
   MatFormFieldModule,
+  MatSidenavModule,
+  ScrollingModule,
 ];
 @NgModule({
   declarations: [],
